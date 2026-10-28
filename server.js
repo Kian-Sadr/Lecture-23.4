@@ -14,7 +14,14 @@ const server = http.createServer((req, res) => {
         fs.mkdir(name, (error) =>{
             res.end(error ? "Error: " + error.message : "Folder " + name + " made.");
         });
-    }
+    } else if(req.url.startsWith("/mkfile/")){
+        fs.writeFile(name, "", {flag: "wx", (error) =>{
+            res.end(error ? "Error: " + error.message : "File " + name + " made.");
+        });
+    } else if(req.url === '/files'){
+        fs.access('.', (error) => {
+            
+        }
     } else {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(fs.readFileSync('index.html'));
